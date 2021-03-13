@@ -1,9 +1,19 @@
 from flask import Flask,render_template
-
+import api,csv
+from binance.client import Client
 app =Flask(__name__)
+
+client = Client(api.API_KEY, api.API_SECRET,tld='com')
+
+
+
+
 @app.route('/')
 def index():
-    return render_template('INDEX.HTML')
+    info=client.get_account()
+    print(info)
+    return render_template('templates/INDEX.HTML')
+   
     
 @app.route('/buy')
 def buy():
