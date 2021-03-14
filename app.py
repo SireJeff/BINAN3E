@@ -14,7 +14,7 @@ def index():
     info=client.get_account()
     balances=info['balances']
     print(balances)
-    return render_template('INDEX.HTML ',title=title, my_balances=balances)
+    return render_template('templates/INDEX.HTML',title=title, my_balances=balances)
    
     
 @app.route('/buy')
