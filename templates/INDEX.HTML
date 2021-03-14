@@ -8,12 +8,29 @@
 <body>
 
     <h1>  FBB</h1>
+
+
+
     <h2>Trades</h2>
+
+
+
     <div id="chart">
         <script src="{{url_for('static',filename='chart.js')}}"></script>
     </div>
+
+
+
     <div id="trades"> </div>
+
+
+
     <h3>settings</h3>
+
+
+
+
+
     <div id="settings">
         <input type="checkbox">RSI
         <input type="text"id="rsi_length"name="rsi_length" placeholder="14"/>overbought
@@ -22,6 +39,9 @@
         
         
     </div>
+
+
+
     <script>
         /*    var exampleSocket = new WebSocket(" wss://stream.binance.com:9443/ws/btcusdt@trade");
         var tradeDiv=document.getElementById('trades')
@@ -31,12 +51,34 @@
             var messageObject= JSON.parse(event.data)
             tradeDiv.append(messageObject.p+"\n")
         } */
-    </script> 
-  <select>
-      {% for symbol in symbols %}
-         <option> {{ symblo['symbol']}}</option>
-      {% endfor %}
-  </select>
+    </script>
+
+
+    <div style="border: solid gray 1px ; padding:20px ;margin: 20px ;width: 600px;">
+        <h1>BUY CRYPTO</h1>
+          {% with messages = get_flashed_messages() %}
+           
+            {% if messages %}
+                <div style="border: solid red 1px ; padding:10px ;margin-bottom: 10px ;background: pink;">
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                </div>
+            {% endif %}
+          {% endwith %}
+            <form action="/buy"  method="POST"> 
+                <input type="text" id="quantity" name="quantity" placeholder="amount ,ex:0.001"> 
+                <input type="text" id="limit" name="limit" placeholder="limit ,ex:0.001"> 
+                <select id="symbol" name="symbol">
+                {% for symbol in symbols %}
+                    <option> {{ symbol['symbol']}}</option>
+                {% endfor %}
+                </select>
+                <input type="submit" name="buy" value="buy">
+            </form>
+    </div>
+
+    
     <div id="assets">
         <h1>BALANCES</h1>
        
@@ -55,5 +97,7 @@
         </table>
         
     </div>
+
+
 </body>
 </html>

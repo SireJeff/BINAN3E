@@ -1,0 +1,19 @@
+<comment> <!--   
+    <form action="/orders" method="POST" >
+      <div style="border: solid gray 1px ; padding:20px ;margin: 20px ;width: 600px;">
+          <input type="submit" name="showorders" value="show orders" >
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+               {% for messages['tradeFee'] in messages %}
+                   {{messages['tradeFee']['symbol']}}
+                   <h1>    b     </h1>
+                   {{messages['tradeFee']['taker']}}
+
+               {% endfor %}
+            {% endif %}
+          {% endwith %}
+      </div>
+  
+  </form> 
+  --> </comment>
+ 

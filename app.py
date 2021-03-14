@@ -1,36 +1,53 @@
-from flask import Flask,render_template
+from flask import Flask,render_template,request,flash, redirect
 import api,csv
 from binance.client import Client
 from binance.enums import *
 
-app =Flask(__name__)
 
+app =Flask(__name__)
+app.secret_key=b"dsssssssssssssssssssssssssssddsdssddssddssdsdsdsdsd"
 client = Client(api.API_KEY, api.API_SECRET,tld='com')
 
-
-
-
+""" try:
+    print(client.get_trade_fee())
+except Exception as e:
+    print(e.message) """
 @app.route('/')
 def index():
     title="BINAMOOSE VIEW"
     account=client.get_account()
     balances=account['balances']
-    info= client.get_exchange_info()
-    symbols=info['symbols']
+    accinfo= client.get_exchange_info()
+    symbols=accinfo['symbols']
     print(balances)
     return render_template('INDEX.HTML',title=title, my_balances=balances,symbols=symbols)
    
-    
-@app.route('/buy')
+   
+""" @app.route('/orders', methods=['POST'])
+def ger_orders():
+    try:
+        orders=client.get_trade_fee()
+        flash(orders,"info")
+       
+    except Exception as e:
+        print(e.mesaage)
+     return redirect('/') """
+
+@app.route('/buy', methods=['POST'])
 def buy():
-    order = client.create_order(
-    symbol='BNBBTC',
-    side=SIDE_BUY,
-    type=ORDER_TYPE_LIMIT,
-    timeInForce=TIME_IN_FORCE_GTC,
-    quantity=100,
-    price='0.00001')
-    return'buy'
+    try:
+        order = client.create_order(
+        symbol=request.form['symbol'],
+        side=SIDE_BUY,
+        type=ORDER_TYPE_LIMIT,
+        timeInForce=TIME_IN_FORCE_GTC,
+        quantity=request.form['quantity'],
+        price=request.form['limit'])
+    except Exception as e:
+        flash(e.message,"error")
+
+    return redirect('/')
+
 
 @app.route('/sell')
 def sell():
