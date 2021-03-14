@@ -32,7 +32,11 @@
             tradeDiv.append(messageObject.p+"\n")
         } */
     </script> 
-  
+  <select>
+      {% for symbol in symbols %}
+         <option> {{ symblo['symbol']}}</option>
+      {% endfor %}
+  </select>
     <div id="assets">
         <h1>BALANCES</h1>
        
