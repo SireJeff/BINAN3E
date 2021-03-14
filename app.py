@@ -10,10 +10,11 @@ client = Client(api.API_KEY, api.API_SECRET,tld='com')
 
 @app.route('/')
 def index():
+    title="BINAMOOSE VIEW"
     info=client.get_account()
     balances=info['balances']
     print(balances)
-    return render_template('templates/INDEX.HTML')
+    return render_template('INDEX.HTML ',title=title, my_balances=balances)
    
     
 @app.route('/buy')
