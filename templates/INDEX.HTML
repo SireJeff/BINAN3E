@@ -6,9 +6,20 @@
 <div>
     <h1>BALANCES</h1>
     my_balances
-    {% for balances in my_balances %}
-      {{my_balances}}
-    { % endfor %}
+    <table>
+        {% for balances in my_balances %}
+        <tr>
+            <td>
+                {{ balances['asset'] }} 
+            </td>
+            <td>
+                {{ balances['free'] }}
+            </td>
+        </tr>
+        
+      {% endfor %}
+    </table>
+    
 </div>
 
 <body>
