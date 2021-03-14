@@ -11,7 +11,8 @@ client = Client(api.API_KEY, api.API_SECRET,tld='com')
 @app.route('/')
 def index():
     info=client.get_account()
-    print(info)
+    balances=info['balances']
+    print(balances)
     return render_template('templates/INDEX.HTML')
    
     
