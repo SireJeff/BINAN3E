@@ -4,10 +4,15 @@ from binance.client import Client
 from binance.enums import *
 
 
+
 app =Flask(__name__)
+
 app.secret_key=b"dsssssssssssssssssssssssssssddsdssddssddssdsdsdsdsd"
+
 client = Client(api.API_KEY, api.API_SECRET,tld='com')
 
+kk=client.get_historical_klines("BTCUSDT",client.KLINE_INTERVAL_1DAY,"1 Jul,2020","12 Jan,2021")
+print(kk)
 """ try:
     print(client.get_trade_fee())
 except Exception as e:
@@ -68,7 +73,7 @@ def history():
     proccessed_candlesticks=[]
     for data in candelsticks:
         candelstick={
-            "time": data[0],
+            "time": data[0]/1000,
             "open": data[1], 
             "high": data[2],
             "low": data[3],
