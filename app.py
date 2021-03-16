@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request,flash, redirect , jasonify
+from flask import Flask,render_template,request,flash, redirect , jsonify
 import api,csv
 from binance.client import Client
 from binance.enums import *
@@ -21,6 +21,8 @@ def index():
     symbols=accinfo['symbols']
     print(balances)
     return render_template('INDEX.HTML',title=title, my_balances=balances,symbols=symbols)
+if __name__ == '__main__':
+    app.run(debug=True)
    
    
 """ @app.route('/orders', methods=['POST'])
@@ -62,6 +64,17 @@ cvsfiles= open("data/fuck.txt","w")
 
 @app.route('/history')
 def history():
-    candelsticks=client.get_historical_klines('BTCUSDT',client.KLINE_INTERVAL_5MINUTE,"1 aug,2020","2 jan,2021")
-
-    return jasonify(candelsticks)
+    candelsticks=client.get_historical_klines("BTCUSDT",client.KLINE_INTERVAL_1DAY,"1 Jul,2020","12 Jan,2021")
+    proccessed_candlesticks=[]
+    for data in candelsticks:
+        candelstick={
+            "time": data[0],
+            "open": data[1], 
+            "high": data[2],
+            "low": data[3],
+            "close": data[4]
+           
+        }
+        proccessed_candlesticks.append(candelstick)
+        
+    return jsonify(proccessed_candlesticks)
