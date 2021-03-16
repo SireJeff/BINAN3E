@@ -32,7 +32,7 @@ var candleSeries = chart.addCandlestickSeries({
   wickDownColor: 'rgba(255, 144, 0, 1)',
   wickUpColor: 'rgba(255, 144, 0, 1)',
 });
-fetch('http://localhost:5000/history').then((r)=>r.json())
+fetch('http://127.0.0.1:5000/history').then((r)=>r.json())
 	.then((response)=>{
 		console.log(response)
 		candleSeries.setData(response);
