@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request,flash, redirect
+from flask import Flask,render_template,request,flash, redirect , jasonify
 import api,csv
 from binance.client import Client
 from binance.enums import *
@@ -59,3 +59,9 @@ def settings():
 print("shut the fuck up about moon man")
 print("this should be fun")
 cvsfiles= open("data/fuck.txt","w")
+
+@app.route('/history')
+def history():
+    candelsticks=client.get_historical_klines('BTCUSDT',client.KLINE_INTERVAL_5MINUTE,"1 aug,2020","2 jan,2021")
+
+    return jasonify(candelsticks)
