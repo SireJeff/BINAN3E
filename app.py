@@ -69,7 +69,7 @@ cvsfiles= open("data/fuck.txt","w")
 
 @app.route('/history')
 def history():
-    candelsticks=client.get_historical_klines("BTCUSDT",client.KLINE_INTERVAL_1DAY,"1 Jul,2020","12 Jan,2021")
+    candelsticks=client.get_historical_klines("BTCUSDT",client.KLINE_INTERVAL_1DAY,"1 Jul,2020","16 Mar,2021")
     proccessed_candlesticks=[]
     for data in candelsticks:
         candelstick={
