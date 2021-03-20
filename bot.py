@@ -3,7 +3,7 @@ import config
 from binance.client import Client
 from binance.enums import *
 
-SOCKET = "wss://stream.binance.com:9443/ws/ethusdt@kline_1m"
+SOCKET = "wss://stream.binance.com:9443/ws/ethusdt@kline_1h"
 
 RSI_PERIOD = 14
 RSI_OVERBOUGHT = 70
@@ -13,19 +13,25 @@ TRADE_QUANTITY = 0.05
 
 closes = []
 in_position = False
+buy_orders=[]
+initiated_buy_orders=[]
+client = Client(api.API_KEY, api.API_SECRET, tld='com')
 
-client = Client(config.API_KEY, config.API_SECRET, tld='us')
-
-def order(side, quantity, symbol,order_type=ORDER_TYPE_MARKET):
+funds_USDT=client.get_asset_balance(asset='USDT')
+shares=funds_USDT/4
+def order(side, quantity, symbol,order_type=ORDER_TYPE_LIMIT):
     try:
         print("sending order")
-        order = client.create_order(symbol=symbol, side=side, type=order_type, quantity=quantity)
+        order = client.create_order(symbol=symbol, side=side, type=order_type, quantity=shares)
         print(order)
     except Exception as e:
         print("an exception occured - {}".format(e))
         return False
 
     return True
+
+    
+def get_orders():
 
     
 def on_open(ws):
