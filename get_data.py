@@ -2,16 +2,16 @@ import api,csv
 from binance.client import Client
 client = Client(api.API_KEY, api.API_SECRET)
 
-""" prices= client.get_all_tickers()
-
-for price in prices:
-    print (price)
- """
 candles = client.get_klines(symbol='BTCUSDT', interval=Client.KLINE_INTERVAL_15MINUTE)
 
 csvfile =open('15minutes.csv','w',newline='') 
 candlestick_writer=csv.writer(csvfile , delimiter=',')
-
+accinfo= client.get_exchange_info()
+symbolss=accinfo['symbols']
+csvfile_symbol =open('symbols.csv','w',newline='') 
+symbol_writer=csv.writer(csvfile_symbol)
+for symbol in symbolss:
+    symbol_writer.writerow(symbol['symbol'])
 for candlestick in candles:
     print(candlestick)
     candlestick_writer.writerow(candlestick)
